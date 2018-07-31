@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.xzy.spring.aop.declareParents"/>
+
+    <!--属性proxy-target-class，如果设置为true，则表明要代理的类是没有实现任何接口的，这时spring会选择CGLIB创建代理；
+        java创建代理的方法：
+        1、使用Java动态代理来创建，用到InvocationHandler和Proxy，该方式只能为接口实例创建代理。
+        2、使用CGLIB代理，就可以不局限于只能是实现了接口的类实例了。
+    -->
+    <aop:aspectj-autoproxy proxy-target-class="false"/>
+
+</beans>

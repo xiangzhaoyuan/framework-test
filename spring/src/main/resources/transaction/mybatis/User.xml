@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzy.spring.transaction.IUserDao">
+
+    <resultMap type="com.xzy.spring.transaction.User" id="userResultMap">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="age" column="age"/>
+        <result property="gender" column="gender"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <select id="selectUserById" parameterType="int" resultMap="userResultMap">
+        select * from tb_user where id = #{id}
+    </select>
+
+    <select id="selectUsersByName" parameterType="string" resultMap="userResultMap">
+        select * from tb_user where username = #{username}
+    </select>
+
+    <!--执行增加操作的SQL语句。id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。
+    useGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键；keyProperty="id"指定把获取到的主键值注入到User的id属性-->
+    <insert id="insertUser" parameterType="com.xzy.spring.transaction.User" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_user(username,password,age,gender,create_date,update_date)
+        values(#{username},#{password},#{age},#{gender},now(),now())
+    </insert>
+
+    <update id="updateUser" parameterType="com.xzy.spring.transaction.User">
+        update tb_user set username=#{username},password=#{password},age=#{age},gender=#{gender},update_date=now() where
+        id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from tb_user where id=#{id}
+    </delete>
+
+</mapper>

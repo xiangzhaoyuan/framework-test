@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzy.spring.transaction.IOrderDao">
+
+    <resultMap type="com.xzy.spring.transaction.Order" id="orderResultMap">
+        <id property="id" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="productCount" column="product_count"/>
+        <result property="productAmountTotal" column="product_amount_total"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <select id="selectOrderById" parameterType="Integer" resultMap="orderResultMap">
+        select * from tb_order where id = #{id}
+    </select>
+
+    <select id="selectOrdersByUserId" parameterType="Integer" resultMap="orderResultMap">
+        select * from tb_order where user_id = #{userId}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.xzy.spring.transaction.Order" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into tb_order(order_no,user_id,order_status,product_count,product_amount_total,create_date,update_date)
+        values(#{orderNo},#{userId},#{orderStatus},#{productCount},#{productAmountTotal},now(),now())
+    </insert>
+
+    <update id="updateOrder" parameterType="com.xzy.spring.transaction.Order">
+        update tb_order set
+        order_no=#{orderNo},user_id=#{userId},order_status=#{orderStatus},product_count=#{productCount},
+        product_amount_total=#{productAmountTotal},update_date=now() where id=#{id}
+    </update>
+
+    <delete id="deleteOrderById" parameterType="Integer">
+        delete from tb_order where id=#{id}
+    </delete>
+
+    <delete id="deleteOrdersByUserId" parameterType="Integer">
+        delete from tb_order where user_id=#{userId}
+    </delete>
+
+</mapper>

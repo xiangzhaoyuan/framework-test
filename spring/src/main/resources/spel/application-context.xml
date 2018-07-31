@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--systemProperties内置的变量，获取系统属性-->
+    <bean id="hello" class="com.xzy.spring.spel.Hello">
+        <property name="userDir" value="#{systemProperties['user.dir']}"/>
+        <property name="key" value="abc"/>
+    </bean>
+
+    <bean id="world" class="com.xzy.spring.spel.Hello">
+        <property name="userDir" value="#{T(System).getProperty('user.dir')}"/>
+        <property name="key" value="#{hello.key}"/>
+    </bean>
+
+</beans>

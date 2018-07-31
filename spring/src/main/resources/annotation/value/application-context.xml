@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="com.xzy.spring.annotation.value"/>
+
+    <!--方式1：对应#{}方式获取值，使用PropertiesFactoryBean-->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:annotation/value/datasource.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--方式2：对应#{}方式获取值，使用<util:properties/>标签，要引入util的xsd，与方法1等价-->
+    <!--<util:properties id="configProperties" location="classpath:annotation/value/datasource.properties"/>-->
+
+    <!--方式3：对应${}的取值方式，使用PreferencesPlaceholderConfigurer，需要与方式1配合试用-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties"/>
+    </bean>
+
+    <!--方式4：对应${}的取值方式，使用PropertyPlaceholderConfigurer-->
+    <!--<bean id="jdbcProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:annotation/value/datasource.properties</value>
+            </list>
+        </property>
+    </bean>-->
+
+    <!--方式5：对应${}的取值方式，与方法4等价-->
+    <!--<context:property-placeholder location="classpath:annotation/value/datasource.properties"/>-->
+
+    <!--注意：Spring容器仅允许最多定义一个PropertyPlaceholderConfigurer(或<context:property-placeholder/>)，其余的会被Spring忽略掉-->
+
+</beans>

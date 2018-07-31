@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="tank" class="com.xzy.spring.aop.advisor.Tank"/>
+
+    <bean id="fireAssist" class="com.xzy.spring.aop.advisor.FireAssist"/>
+
+    <bean id="logBeforeAdvice" class="com.xzy.spring.aop.advisor.LogBeforeAdvice"/>
+    <bean id="logThrowsAdvice" class="com.xzy.spring.aop.advisor.LogThrowsAdvice"/>
+    <bean id="logAfterReturningAdvice" class="com.xzy.spring.aop.advisor.LogAfterReturningAdvice"/>
+    <bean id="logAroundAdvice" class="com.xzy.spring.aop.advisor.LogAroundAdvice"/>
+
+    <aop:config>
+        <aop:pointcut expression="bean(tank)" id="tankPointcut"/>
+        <aop:advisor advice-ref="logBeforeAdvice" pointcut-ref="tankPointcut"/>
+        <aop:advisor advice-ref="logThrowsAdvice" pointcut-ref="tankPointcut"/>
+        <aop:advisor advice-ref="logAfterReturningAdvice" pointcut-ref="tankPointcut"/>
+        <aop:advisor advice-ref="logAroundAdvice" pointcut-ref="tankPointcut"/>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.xzy.spring.interfaces.classPathBeanDefinitionScanner.CustomBeanDefinitionRegistry"/>
+
+    <bean id="helloOne" class="com.xzy.spring.interfaces.classPathBeanDefinitionScanner.one.HelloOne">
+        <property name="name" value="one"/>
+    </bean>
+
+    <bean id="helloTwo" class="com.xzy.spring.interfaces.classPathBeanDefinitionScanner.two.HelloTwo">
+        <property name="name" value="two"/>
+    </bean>
+
+</beans>

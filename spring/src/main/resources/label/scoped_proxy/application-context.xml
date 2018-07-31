@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!--在长生命周期的bean引用短生命周期bean时，会有一个问题。 比如singleton类依赖了prototype类，容器会在singleton类初始化时，
+        就根据依赖关系将prototype类注入。以后的每一次调用singleton bean都是同一个对象，里面的prototype bean也是最初注入的那个，
+        容器再也不会为singleton bean产生新的prototype bean。为了让我们在每次调用这个Bean的时候都能够得到具体scope中的值，那么
+        我们希望每次在单例中调用这个Bean的时候，得到的都是一个新的prototype，这时可以引入<aop:scoped-proxy/>标签，容器将创建
+        一个代理对象，该对象拥有和PrototypeBean完全相同的public接口并暴露，代理对象每次调用时会获取真正的PrototypeBean对象。
+    -->
+    <bean id="prototypeBean" class="com.xzy.spring.label.scoped_proxy.PrototypeBean" scope="prototype">
+        <!--如果不使用<aop:scoped-proxy/>标签，那么SingletonBean每次都是获取的初始注入的PrototypeBean-->
+        <aop:scoped-proxy/>
+    </bean>
+
+    <bean id="singletonBean" class="com.xzy.spring.label.scoped_proxy.SingletonBean">
+        <!--<property name="prototype">
+            <ref bean="prototypeBean" />
+        </property>-->
+        <property name="prototype" ref="prototypeBean"/>
+    </bean>
+
+</beans>

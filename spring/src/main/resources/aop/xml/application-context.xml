@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="tank" class="com.xzy.spring.aop.xml.Tank"/>
+    <bean id="fighterPlane" class="com.xzy.spring.aop.xml.FighterPlane"/>
+
+    <bean id="fireAssist" class="com.xzy.spring.aop.xml.FireAssist"/>
+
+    <!-- Aop根元素 -->
+    <aop:config>
+        <!-- 切面(Aspect) -->
+        <aop:aspect ref="fireAssist">
+            <!-- 切点 -->
+            <aop:pointcut expression="execution(* com.xzy.spring.aop.xml.*.*(..))" id="pc"/>
+            <!--
+                通知(Advice):
+                <aop:after> 后通知
+                <aop:after-returning> 返回后通知
+                <aop:after-throwing> 抛出后通知
+                <aop:around> 周围通知
+                <aop:before> 前通知
+            -->
+            <aop:before method="actionLog" pointcut-ref="pc"/>
+            <aop:after method="reportComplete" pointcut-ref="pc"/>
+            <!-- 通知也可这样写 <aop:before method="actionLog" pointcut="execution(* com.xzy.spring.aop.xml.*.*(..))"/> -->
+        </aop:aspect>
+        <!-- 可加多个切面(Aspect) -->
+    </aop:config>
+
+</beans>

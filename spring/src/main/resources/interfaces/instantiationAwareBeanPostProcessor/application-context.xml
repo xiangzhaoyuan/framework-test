@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myInstantiationAwareBeanPostProcessor"
+          class="com.xzy.spring.interfaces.instantiationAwareBeanPostProcessor.MyInstantiationAwareBeanPostProcessor"/>
+
+    <bean id="action" class="com.xzy.spring.interfaces.instantiationAwareBeanPostProcessor.Action">
+        <property name="value" value="测试数据"/>
+    </bean>
+
+</beans>

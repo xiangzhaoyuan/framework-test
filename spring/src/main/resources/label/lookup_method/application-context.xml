@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userSession" class="com.xzy.spring.label.lookup_method.UserSessionImpl" scope="prototype"/>
+
+    <!--有些业务情况要求在增加新的bean时，不允许改动以前的bean定义和旧的代码。简单的说：被调用者（短生命周期bean）不允许修改，只能修改
+        调用者（新增的长生命周期bean）。此时利用Lookup达到我们的要求，Lookup方法的工作机制是使用cglib在产生字节码阶段生成一个代理类
+    -->
+    <bean id="serviceBean" class="com.xzy.spring.label.lookup_method.ServiceBean">
+        <!-- name是类中返回代理对象的方法名，bean是lookup-method要代理的对象 -->
+        <lookup-method name="setUserSession" bean="userSession"/>
+    </bean>
+
+</beans>
