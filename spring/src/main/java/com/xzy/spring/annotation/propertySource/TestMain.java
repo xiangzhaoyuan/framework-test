@@ -23,7 +23,7 @@ public class TestMain {
 
     /**
      * Environment可以持有一系列的PropertySource，然后在从中获取属性时，其会依次从对应的PropertySource中寻找，当然也包括系统属性和环境变量。
-     * 一个Environment中默认会包含两个PropertySource，分别对应于系统属性和环境变量。即默认情况下在只有系统属性和环境变量对应的两个ProperySource时，
+     * 一个Environment中默认会包含两个PropertySource，分别对应于系统属性和环境变量。即默认情况下在只有系统属性和环境变量对应的两个PropertySource时，
      * 如果我们从Environment中获取某属性，将先从系统属性中取，没取到再从环境变量中获取。
      */
     public static void testPropertySource1() {
